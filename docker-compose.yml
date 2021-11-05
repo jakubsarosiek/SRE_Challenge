@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    command: ['--config.file=/etc/prometheus/prometheus.yml']
+    ports: ['9090:9090']
+    volumes:
+      - ./Config/prometheus_config.yml:/etc/prometheus/prometheus.yml
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports: ['3000:3000']
+    volumes:
+      - ./Config/grafana_dashboard.json:/etc/grafana/provisioning/dashboards/grafana_dashboard.json
+      - ./Config/grafana_source.yaml:/etc/grafana/provisioning/datasources/grafana_source.yaml
+      - ./Config/grafana_provision.yaml:/etc/grafana/provisioning/dashboards/grafana_provision.yaml
+    environment:
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH: "/etc/grafana/provisioning/dashboards/grafana_dashboard.json"
+
+  list_commits_api:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - 5000:5000
+    image: list_commits_api
+    container_name: list_commits_api
