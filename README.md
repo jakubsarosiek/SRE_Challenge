@@ -4,6 +4,7 @@ This project shows list of all commits for given GitHub url. Can be run as a scr
 
 README.md for this project is also accesable on:
 ```http://localhost:5000/```
+after install.
 
 ## Setup:
 
@@ -25,7 +26,7 @@ chmod +x ./findgitcommits_to_file.sh
 After script make all steps you will receive .json file with random UUID name containing list of all commits for given url.
 
 ### API version
-To run api version we will use docker-compose. Project contains 3 images:
+To run api version we will use docker-compose to build, pull and run all necessary components. Project contains 3 apps:
 * ist_commits_api
 * [prometheus](https://github.com/prometheus/prometheus)
 * [grafana](https://github.com/grafana/grafana)
@@ -48,7 +49,7 @@ chmod +x ./runme.sh
 or:
 ```bash
 docker-compose build
-docker-compose -p "jakub_s_codacy_test" up -d
+docker-compose -p "jakub_s_SRE_Challenge" up -d
 ```
 
 Usage:
